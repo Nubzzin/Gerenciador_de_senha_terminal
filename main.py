@@ -12,6 +12,7 @@ def comecar():
     if selecao == '0':
         dados = pd.read_csv('gerenciador.csv')
         print(dados)
+        print('___*___')
         comecar()
     elif selecao == '1':
         gerar()
