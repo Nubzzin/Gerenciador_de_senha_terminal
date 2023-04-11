@@ -47,6 +47,16 @@ def gerar():
 
     confirmacao_de_dados(gerar_titulo(), gerar_email(), gerar_senha())
 
+def deletar_email():
+    dados = pd.read_csv('gerenciador.csv')
+
+    print('Qual email deseja excluir?')
+    print(dados)
+    selecao = int(input('__\ndigite o numero referente a exclusão desejada:'))
+
+    dados = dados.drop(selecao)
+    dados.to_csv('gerenciador.csv',index=False) 
 
 if __name__ == '__main__':
     gerar()
+    deletar_email()
