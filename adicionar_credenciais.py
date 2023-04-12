@@ -53,9 +53,13 @@ def deletar_email():
     print('Qual email deseja excluir?')
     print(dados)
     selecao = int(input('__\ndigite o numero referente a exclusão desejada:'))
-
-    dados = dados.drop(selecao)
-    dados.to_csv('gerenciador.csv',index=False) 
+    confirmacao = input('Tem certeza?:(s/n) ')
+    if confirmacao == 's':
+        dados = dados.drop(selecao)
+        dados.to_csv('gerenciador.csv',index=False)
+    elif confirmacao == 'n':
+        print('Não confirmado')
+    
 
 if __name__ == '__main__':
     gerar()

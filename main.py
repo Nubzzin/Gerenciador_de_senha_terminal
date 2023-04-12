@@ -7,7 +7,7 @@ print('******************************')
 
 
 def comecar():
-    selecao = input('O que deseja fazer?: \n 0 - Ver emails e senhas \n 1 - Criar email e senha \n 2 - Deletar email e senha \n q - Fechar\n: ')
+    selecao = input('O que deseja fazer?: \n 0 - Ver emails \n 1 - Criar email e senha \n 2 - Deletar email  \n q - Fechar\n: ')
 
     if selecao == '0':
         dados = pd.read_csv('gerenciador.csv')
