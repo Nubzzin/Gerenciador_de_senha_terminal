@@ -21,7 +21,8 @@ def comecar():
         print('Encerrado!')
         return False
     else:
-        print('Erro!')
+        print('Erro! Tente as alternativas disponiveis!')
+        return True
 
     print('__*__')
 
