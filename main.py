@@ -1,5 +1,5 @@
 import pandas as pd
-from adicionar_credenciais import gerar, deletar_email
+from adicionar_credenciais import gerar,deletar_email, Email
 
 print('******************************')
 print('*****Gerenciador de senha*****')

@@ -2,50 +2,45 @@ import random
 import string
 import pandas as pd
 
+class Email:
+    def __init__(self,titulo,email):
+        self.titulo = titulo
+        self.email = email
+        self.senha = ''
 
-def gerar():
-    def gerar_titulo():
-        titulo = input(f'Qual o titulo do email?: ').title()
-        return titulo
-
-    def gerar_email():
-        email = input('Qual email deseja criar?: ').lower()
-        return email
-
-    def gerar_senha():
-        i = input('Quer 0 - criar uma senha ou 1 - senha aleatoria?(0/1): ')
-        if i == '0':
-            senha = input('Digite sua senha: ')
-        elif i == '1':
+    def gerar_senha(self):
+        selecao = input(f'Deseja inserir a senha manualmente(1) ou gerar uma aleatoria(2)?\n(1/2): ')
+        if selecao == '1':
+            self.senha = input('Digite a senha: ')
+            
+        elif selecao == '2':
             tamanho_senha = int(input('Qual o tamanho da senha?: '))
             lista = []
 
             for i in range(tamanho_senha):
                 lista.append(random.choice(string.ascii_letters + string.digits))
-                senha = ''.join(map(str, lista))
-        else:
-            print('Error')
-            gerar_senha()
+                self.senha = ''.join(map(str, lista))
+    
 
-        return senha
+def gerar():
+    dados = pd.read_csv('gerenciador.csv')
 
-    def confirmacao_de_dados(titulo, email, senha):
-        dados = pd.read_csv('gerenciador.csv')
-        confirmacao = input(
-            f'Seu titulo é {titulo} \nSeu email é: {email} \nSua senha é: {senha} \nDeseja confirmar? (S/N): ').lower()
+    titulo = input('Qual o titulo do email?: ').title()
+    email = input('Qual o email?: ')
+    usuario = Email(titulo,email)
+    senha = usuario.gerar_senha()
 
-        if confirmacao == 's':
-            print('Confirmado!')
-            adicionar = pd.DataFrame({'Titulo': [titulo], 'Email': [email], 'Senha': [senha]})
-            dados = pd.concat([dados, adicionar], ignore_index=True)
-            dados.to_csv('gerenciador.csv', index=False)
-        elif confirmacao == 'n':
-            print('Não confirmado!')
-        else:
-            print('Erro! \nTente Sim/Não')
-            confirmacao_de_dados(titulo, email, senha)
+    print(f'Essas são suas informações:\
+          \nTitulo: {usuario.titulo}\
+          \nEmail: {usuario.email}\
+          \nSenha: {usuario.senha}')
+    cin = input('Deseja confirmar?(s/n): ')
 
-    confirmacao_de_dados(gerar_titulo(), gerar_email(), gerar_senha())
+    if cin == 's':
+        adicionar = pd.DataFrame({'Titulo': [usuario.titulo], 'Email': [usuario.email], 'Senha': [usuario.senha]})
+        dados = pd.concat([dados,adicionar],ignore_index=True)
+        dados.to_csv('gerenciador.csv',index=False)
+        print(dados)
 
 def deletar_email():
     dados = pd.read_csv('gerenciador.csv')
@@ -59,7 +54,6 @@ def deletar_email():
         dados.to_csv('gerenciador.csv',index=False)
     elif confirmacao == 'n':
         print('Não confirmado')
-    
 
 if __name__ == '__main__':
     gerar()
